@@ -2,11 +2,14 @@ package com.completedsa.dsa.linkedLists.sort;
 
 import static com.completedsa.dsa.linkedLists.sort.BubbleSortLinkedList.printList;
 
+// Time Complexity: O(n*log(n)) in the average, best, and worst cases.
 public class MergeSortLinkedList {
-    static Node findMiddleNode(Node head) {
+    // Function to split the singly linked list into two halves
+    static Node split(Node head) {
         Node fast = head;
         Node slow = head;
 
+        // Move fast pointer two steps and slow pointer one step until fast reaches the end
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
 
@@ -15,31 +18,54 @@ public class MergeSortLinkedList {
             }
         }
 
-        if (slow != null) {
-            slow.next = null;
-        }
-
-        return slow;
+        // Split the list into two halves
+        Node temp = slow.next;
+        slow.next = null;
+        return temp;
     }
 
+    // Function to merge two sorted singly linked lists
     static Node merge(Node first, Node second) {
+        // If either list is empty, return the other list
         if (first == null) return second;
         if (second == null) return first;
 
+        // Pick the smaller value between first and second nodes
         if (first.data < second.data) {
-            return first.next = merge(first.next, second);
+            // Recursively merge the rest of the lists and link the result to the current node
+            first.next = merge(first.next, second);
+            return first;
         } else {
-            return second.next = merge(first, second.next);
+            // Recursively merge the rest of the lists and link the result to the current node
+            second.next = merge(first, second.next);
+            return second;
         }
     }
 
+    /**
+     * Follow the given steps to solve the problem
+     *  Split the List into Two Halves: Use two pointers, fast and slow, starting at the head.
+     *      Move fast two steps and slow one step. When fast reaches the end, slow is at the midpoint.
+     *      Split the list into two halves: the first half from head to slow, and the second from slow->next to the end. Set slow->next to NULL.
+     *  Apply MergeSort Recursively on both halves
+     *      The base case is when the list is empty (head == NULL) or has one node (head->next == NULL), in which case return the list as is.
+     *  Merge the Two Sorted Halves
+     *      Finally, returns the new head of the sorted list
+     */
     public static Node mergeSortLinkedList(Node head) {
-        if (head == null) return null;
+        // Base case: if the list is empty or has only one node, it's already sorted
+        if (head == null || head.next == null) {
+            return head;
+        }
 
-        Node second = findMiddleNode(head);
+        // Split the list into two halves
+        Node second = split(head);
+
+        // Recursively sort each half
         head = mergeSortLinkedList(head);
         second = mergeSortLinkedList(second);
 
+        // Merge the two sorted halves
         return merge(head, second);
     }
 
