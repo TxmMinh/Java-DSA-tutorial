@@ -1,25 +1,16 @@
 package com.completedsa.dsa.graphs;
 
-import java.util.Arrays;
+public class DirectedGraph extends Graph{
 
-public class UndirectedGraph extends Graph {
-    // use for Union-Find Cycle Detection
-    private int[] parent;
-
-    public UndirectedGraph(int size) {
+    public DirectedGraph(int size) {
         super(size);
-
-        this.parent = new int[size];
-        for (int i = 0; i < size; i++) {
-            parent[i] = i;
-        }
     }
 
     @Override
     public void addEdge(int u, int v) {
+        // Directed Graph
         if (u >= 0 && u < size && v >= 0 && v < size) {
             adjMatrix[u][v] = 1;
-            adjMatrix[v][u] = 1;
         }
     }
 
@@ -28,41 +19,40 @@ public class UndirectedGraph extends Graph {
         // Directed and Weighted Graph
         if (u >= 0 && u < size && v >= 0 && v < size) {
             adjMatrix[u][v] = weight;
-            adjMatrix[v][u] = weight;
         }
     }
 
-    private boolean cyclicDepthFirstSearchUtil(int v, boolean[] visited, int parent) {
+
+    private boolean cyclicDepthFirstSearchUtil(int v, boolean[] visited, boolean[] recStack) {
         visited[v] = true;
+        recStack[v] = true;
+        System.out.println("Current vertex: " + vertexData[v]);
 
         for (int i = 0; i < size; i++) {
-            if (adjMatrix[v][i] == 1) {
+            if (adjMatrix[v][i] != 0) {
+                System.out.println("  Checking edge " + vertexData[v] + " -> " + vertexData[i]);
                 if (!visited[i]) {
-                    if (cyclicDepthFirstSearchUtil(i, visited, v)) {
+                    if (cyclicDepthFirstSearchUtil(i, visited, recStack)) {
                         return true;
                     }
-                } else if (i != parent) {
+                } else if (recStack[i]) {
                     return true;
                 }
             }
         }
 
+        recStack[v] = false;
         return false;
     }
 
-    /**
-     * How it works:
-     *  Start DFS traversal on each unvisited vertex (in case the Graph is not connected).
-     *  During DFS, mark vertices as visited, and run DFS on the adjacent vertices (recursively).
-     *  If an adjacent vertex is already visited and is not the parent   of the current vertex, a cycle is detected, and True is returned.
-     *  If DFS traversal is done on all vertices and no cycles are detected, False is returned.
-     */
     @Override
     public boolean isCyclicDFS() {
         boolean[] visited = new boolean[size];
+        boolean[] recStack = new boolean[size]; // backtracking
+
         for (int i = 0; i < size; i++) {
             if (!visited[i]) {
-                if (cyclicDepthFirstSearchUtil(i, visited, -1)) {
+                if (cyclicDepthFirstSearchUtil(i, visited, recStack)) {
                     return true;
                 }
             }
@@ -71,55 +61,8 @@ public class UndirectedGraph extends Graph {
         return false;
     }
 
-    /**
-     * Union-Find Cycle Detection
-     * How it works:
-     *  First putting each node in its own subset
-     *  Then, for every edge, the subsets belonging to each vertex are merged.
-     *  For an edge, if the vertices already belong to the same subset, it means that we have found a cycle.
-     */
-    public boolean isCyclicUnionFind() {
-        for (int i= 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {
-                if (adjMatrix[i][j] == 1) {
-                    int x = findRoot(i);
-                    int y = findRoot(j);
-
-                    if (x == y) {
-                        return true;
-                    }
-
-                    union(x, y);
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private int findRoot(int i) {
-        if (parent[i] == i) {
-            return i;
-        }
-
-        return findRoot(parent[i]);
-    }
-
-    private void union(int x, int y) {
-        int xRoot = findRoot(x);
-        int yRoot = findRoot(y);
-        System.out.println("Union: " + vertexData[x] + " + " + vertexData[y]);
-        parent[xRoot] = yRoot;
-        System.out.println(Arrays.toString(parent) + "\n");
-    }
-
-    /**
-     * The Bellman-Ford algorithm is best suited to find the shortest paths in a directed graph, with one or more negative edge weights, from the source vertex to all other vertices.
-     * 
-     */
-
     public static void main(String[] args) {
-        UndirectedGraph g = new UndirectedGraph(7);
+        DirectedGraph g = new DirectedGraph(7);
 
         g.addVertexData(0, 'A');
         g.addVertexData(1, 'B');
@@ -129,15 +72,13 @@ public class UndirectedGraph extends Graph {
         g.addVertexData(5, 'F');
         g.addVertexData(6, 'G');
 
-        g.addEdge(3, 0); // D - A
-        g.addEdge(0, 2); // A - C
-        g.addEdge(0, 3); // A - D
-        g.addEdge(0, 4); // A - E
-        g.addEdge(4, 2); // E - C
-        g.addEdge(2, 5); // C - F
-        g.addEdge(2, 1); // C - B
-        g.addEdge(2, 6); // C - G
-        g.addEdge(1, 5); // B - F
+        g.addEdge(3, 0, 6); // D -> A
+        g.addEdge(0, 2, 3); // A -> C
+        g.addEdge(2, 1, 5); // C -> B
+        g.addEdge(2, 4, 2); // C -> E
+        g.addEdge(1, 5, 4); // B -> F
+        g.addEdge(4, 0, 1); // E -> A
+        g.addEdge(2, 6, 7); // C -> G
 
         g.printGraph();
 
@@ -147,10 +88,8 @@ public class UndirectedGraph extends Graph {
         System.out.println("\nBreadth First Search starting from vertex D:");
         g.breadthFirstSearch('D');
 
+        System.out.println("\n");
         System.out.println("\nGraph has cycle: " + g.isCyclicDFS());
-
-        System.out.println();
-        System.out.println("\nGraph has cycle: " + g.isCyclicUnionFind());
 
         // Dijkstra's algorithm from D to all vertices
         System.out.println("Dijkstra's Algorithm starting from vertex D:\n");
@@ -159,7 +98,7 @@ public class UndirectedGraph extends Graph {
             System.out.println("Shortest distance from D to " + g.vertexData[i] + ": " + distances[i]);
         }
 
-        System.out.println("\nDijkstra's Algorithm starting from vertex D: \n");
+        System.out.println("Dijkstra's Algorithm starting from vertex D: \n");
         for (int i = 0; i < g.size; i++) {
             System.out.println(g.getShortestPathDijkstra(3, i));
         }
@@ -168,6 +107,7 @@ public class UndirectedGraph extends Graph {
         String result = g.dijkstraSingleDestinationVertex('D', 'C');
         System.out.println(result);
 
+        // Find the shortest path use Bellman-Ford
         Graph g2 = new DirectedGraph(5);
 
         g2.addVertexData(0, 'A');
@@ -189,6 +129,30 @@ public class UndirectedGraph extends Graph {
         // Running the Bellman-Ford algorithm from D to all vertices
         System.out.println("\nThe Bellman-Ford Algorithm starting from vertex D:");
         findShortestPathBellmanFord(g2, 'D');
+
+        Graph g3 = new DirectedGraph(5);
+
+        g3.addVertexData(0, 'A');
+        g3.addVertexData(1, 'B');
+        g3.addVertexData(2, 'C');
+        g3.addVertexData(3, 'D');
+        g3.addVertexData(4, 'E');
+
+        // Add edges
+        g3.addEdge(3, 0, 4);
+        g3.addEdge(3, 2, 7);
+        g3.addEdge(3, 4, 3);
+        g3.addEdge(0, 2, 4);
+        g3.addEdge(2, 0, -9);
+        g3.addEdge(0, 4, 5);
+        g3.addEdge(4, 2, 3);
+        g3.addEdge(1, 2, -4);
+        g3.addEdge(4, 1, 2);
+
+        // Running the Bellman-Ford algorithm from D to all vertices
+        System.out.println("\nThe Bellman-Ford Algorithm starting from vertex D:");
+        findShortestPathBellmanFord(g3, 'D');
     }
+
 
 }
