@@ -113,11 +113,6 @@ public class UndirectedGraph extends Graph {
         System.out.println(Arrays.toString(parent) + "\n");
     }
 
-    /**
-     * The Bellman-Ford algorithm is best suited to find the shortest paths in a directed graph, with one or more negative edge weights, from the source vertex to all other vertices.
-     * 
-     */
-
     public static void main(String[] args) {
         UndirectedGraph g = new UndirectedGraph(7);
 
