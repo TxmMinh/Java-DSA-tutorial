@@ -4,10 +4,10 @@ package com.completedsa.dsa.arrays.search;
 public class LinearSearch {
     /**
      * How it works:
-     * Go through the array value by value from the start.
-     * Compare each value to check if it is equal to the value we are looking for.
-     * If the value is found, return the index of that value.
-     * If the end of the array is reached and the value is not found, return -1 to indicate that the value was not found.
+     *  Go through the array value by value from the start.
+     *  Compare each value to check if it is equal to the value we are looking for.
+     *  If the value is found, return the index of that value.
+     *  If the end of the array is reached and the value is not found, return -1 to indicate that the value was not found.
      */
     public static int linearSearch(int[] arr, int value) {
         // Time Complexity: O(n)

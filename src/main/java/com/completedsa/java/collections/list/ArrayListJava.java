@@ -63,8 +63,21 @@ public class ArrayListJava {
         myNumbers.add(35);
 
         // Sort an ArrayList
+        // ascending order
         Collections.sort(myNumbers);
         myNumbers.sort(null);
         System.out.println(myNumbers);
+        // descending order
+        Collections.sort(myNumbers, Collections.reverseOrder());
+        myNumbers.sort(Collections.reverseOrder());
+        System.out.println(myNumbers);
+
+        // Binary Search
+        int index = Collections.binarySearch(myNumbers, 10);
+        System.out.println(index);
+        System.out.println(Collections.binarySearch(myNumbers, 40, Collections.reverseOrder()));
+        // ascending order
+        Collections.sort(myNumbers);
+        System.out.println(Collections.binarySearch(myNumbers, 35));
     }
 }

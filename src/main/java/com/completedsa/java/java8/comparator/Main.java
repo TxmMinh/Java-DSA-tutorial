@@ -15,17 +15,18 @@ public class Main {
 
         // way 1
         // Use a comparator to sort the cars
-        Comparator myComparator = new SortByYear();
+        Comparator<Car> myComparator = new SortByYear();
         Collections.sort(myCars, myComparator);
 
         // way 2
-        Collections.sort(myCars, (obj1, obj2) -> {
+        Comparator<Car> comparator = (obj1, obj2) -> {
             Car a = (Car) obj1;
             Car b = (Car) obj2;
             if (a.year < b.year) return -1;
             if (a.year > b.year) return 1;
             return 0;
-        });
+        };
+        Collections.sort(myCars, comparator);
 
         // Display the cars
         for (Car c : myCars) {
@@ -47,5 +48,8 @@ public class Main {
         for (int i : myNumbers) {
             System.out.println(i);
         }
+
+        int index = Collections.binarySearch(myCars, new Car(null, null, 1999), comparator);
+        System.out.println("Found at index " + index);
     }
 }

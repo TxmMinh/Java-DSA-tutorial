@@ -1,6 +1,7 @@
 package com.completedsa.java.array;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Array {
     public static void main(String[] args) {
@@ -39,9 +40,13 @@ public class Array {
             }
         }
 
-        // sort an Array
+        // Sort an Array
         String[] sortArray = {"Volvo", "BMW", "Tesla", "Ford", "Fiat", "Mazda", "Audi"};
+        // ascending order
         Arrays.sort(sortArray);
+        System.out.println(Arrays.toString(sortArray));
+        // descending order
+        Arrays.sort(sortArray, Collections.reverseOrder());
         System.out.println(Arrays.toString(sortArray));
     }
 }
