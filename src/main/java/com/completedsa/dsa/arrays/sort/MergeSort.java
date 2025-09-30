@@ -5,10 +5,10 @@ import static com.completedsa.dsa.arrays.sort.BubbleSort.printArray;
 public class MergeSort {
     /**
      * How it works:
-     * Divide the unsorted array into two sub-arrays, half the size of the original.
-     * Continue to divide the sub-arrays as long as the current piece of the array has more than one element.
-     * Merge two sub-arrays together by always putting the lowest value first.
-     * Keep merging until there are no sub-arrays left.
+     *  Divide the unsorted array into two sub-arrays, half the size of the original.
+     *  Continue to divide the sub-arrays as long as the current piece of the array has more than one element.
+     *  Merge two sub-arrays together by always putting the lowest value first.
+     *  Keep merging until there are no sub-arrays left.
      */
     public static void mergeSort(int[] arr) {
         // Time Complexity: O(nlogn)
@@ -39,7 +39,7 @@ public class MergeSort {
         int i = 0, l = 0, r = 0;
 
         while (l < lengthLeft && r < lengthRight) {
-            if (arrLeft[l] < arrRight[r]) {
+            if (arrLeft[l] <= arrRight[r]) {
                 arr[i] = arrLeft[l];
                 i++;
                 l++;

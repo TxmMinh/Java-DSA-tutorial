@@ -7,26 +7,23 @@ import static com.completedsa.dsa.arrays.sort.BubbleSort.printArray;
 public class InsertionSort {
     /**
      * How it works:
-     * Take the first value from the unsorted part of the array.
-     * Move the value into the correct place in the sorted part of the array.
-     * Go through the unsorted part of the array again as many times as there are values.
+     *  Take the first value from the unsorted part of the array.
+     *  Move the value into the correct place in the sorted part of the array.
+     *  Go through the unsorted part of the array again as many times as there are values.
      */
     public static void insertionSort(int[] arr) {
         // Time Complexity: O(n²)
         int n = arr.length;
 
         for (int i = 1; i < n; i++) {
-            int insertIndex = i;
             int currentValue = arr[i]; // Get the element to insert
-            for (int j = i - 1; j >= 0; j--) {
-                if (arr[j] > currentValue) {
-                    arr[j + 1] = arr[j]; // Shift right
-                    insertIndex = j;
-                } else {
-                    break;
-                }
+            int j = i - 1;
+
+            while (j >= 0 && arr[j] > currentValue) {
+                arr[j + 1] = arr[j]; // Shift right
+                j--;
             }
-            arr[insertIndex] = currentValue; // Insert it in the right place
+            arr[j + 1] = currentValue; // Insert it in the right place
         }
     }
 
