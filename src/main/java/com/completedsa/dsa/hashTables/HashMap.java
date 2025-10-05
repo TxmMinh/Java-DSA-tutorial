@@ -33,10 +33,22 @@ public class HashMap {
         }
 
         private int hashFunction(String key) {
-            int numericSum = key.chars() // Creates an IntStream of all character codes in the string.
-                    .filter(Character::isDigit) // Keeps only characters that are digits (0–9).
-                    .map(Character::getNumericValue) // Converts each digit character to its actual numeric value.
-                    .sum();
+//            int numericSum = key.chars() // Creates an IntStream of all character codes in the string.
+//                    .filter(Character::isDigit) // Keeps only characters that are digits (0–9).
+//                    .map(Character::getNumericValue) // Converts each digit character to its actual numeric value.
+//                    .sum();
+
+            int numericSum = 0;
+
+            for (int i = 0; i < key.length(); i++) {
+                char c = key.charAt(i);
+                // Check if character is a digit
+                if (Character.isDigit(c)) {
+                    // Convert char digit (e.g. '7') to numeric value (7)
+                    numericSum += Character.getNumericValue(c);
+                }
+            }
+
             return numericSum % buckets.size();
         }
 

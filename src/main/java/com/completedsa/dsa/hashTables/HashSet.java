@@ -21,7 +21,14 @@ public class HashSet {
         }
 
         private int hashFunction(String value) {
-            return value.chars().reduce(0, Integer::sum) % size;
+            // return value.chars().reduce(0, Integer::sum) % size;
+            int sum = 0;
+
+            for (int i = 0; i < value.length(); i++) {
+                sum += value.charAt(i);
+            }
+
+            return sum % size;
         }
 
         public void add(String value) {

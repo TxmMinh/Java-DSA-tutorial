@@ -2,14 +2,36 @@ package com.completedsa.java.array;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
-public class ArrayMethod {
+/**
+ * Common Arrays Methods in Java
+ * METHODS 	                                                            ACTION PERFORMED
+ * asList()	                                                            Returns a fixed-size list backed by the specified Arrays
+ * binarySearch(array, fromIndex, toIndex, key, Comparator)	            Searches a range of the specified array for the specified object using the Binary Search Algorithm
+ * compare(array 1, array 2)	                                        Compares two arrays passed as parameters lexicographically.
+ * copyOf(originalArray, newLength)	                                    Copies the specified array, truncating or padding with the default value (if necessary) so the copy has the specified length.
+ * copyOfRange(originalArray, fromIndex, endIndex)	                    Copies the specified range of the specified array into a new Arrays.
+ * deepEquals(Object[] a1, Object[] a2)	                                Returns true if the two specified arrays are deeply equal to one another.
+ * deepToString(Object[] a)	                                            Returns a string representation of the "deep contents" of the specified Arrays.
+ * equals(array1, array2)	                                            Checks if both the arrays are equal or not.
+ * fill(originalArray, fillValue)	                                    Assigns this fill value to each index of this arrays.
+ * sort(T[] a, int fromIndex, int toIndex, Comparator< super T> c)	    Sorts the specified range of the specified array of objects according to the order induced by the specified comparator.
+ * sort(T[] a, Comparator< super T> c)	                                Sorts the specified array of objects according to the order induced by the specified comparator.
+ * toString(originalArray) 	                                            It returns a string representation of the contents of this array.
+ */
+public class ArraysMethod {
     public static void main(String[] args) {
+        // asList()
+        Integer[] intArr = {10, 20, 15, 22};
+        List<Integer> listArr = Arrays.asList(intArr);
+        System.out.println(listArr);
+
         // compare()
         // Compares two arrays
         String[] cars = {"Volvo", "BMW", "Tesla"};
         String[] cars2 = {"Volvo", "BMW", "Tesla"};
-        System.out.println(Arrays.compare(cars, cars2));
+        System.out.println(Arrays.compare(cars, cars2)); // if a == b return 0
 
         // copyOf()
         // Creates a copy of an array with a new length
@@ -18,6 +40,9 @@ public class ArrayMethod {
         int[] arr2 = Arrays.copyOf(arr1, arr1.length);
         System.out.println("Original Array: " + Arrays.toString(arr1));
         System.out.println("Copied Array: " + Arrays.toString(arr2));
+
+        int[] copyRangeArr =  Arrays.copyOfRange(arr1, 1, 3);
+        System.out.println("Copied Range Array: " + Arrays.toString(copyRangeArr));
 
         // deepEquals()
         // Compares two multidimensional arrays to check whether they are deeply equal to each other
@@ -28,6 +53,9 @@ public class ArrayMethod {
         System.out.println("arr1 equals with arr2: " + Arrays.deepEquals(arr3, arr4));
         // Compare arr2 and arr3
         System.out.println("arr2 equals with arr3: " + Arrays.deepEquals(arr4, arr5));
+
+        // deepToString()
+        System.out.println(Arrays.deepToString(arr3));
 
         // equals()
         // Checks if two arrays are equal
