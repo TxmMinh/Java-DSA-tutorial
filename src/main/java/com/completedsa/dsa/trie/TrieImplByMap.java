@@ -2,9 +2,15 @@ package com.completedsa.dsa.trie;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A Trie (also known as a Prefix Tree) is a tree-based data structure that is used to store a dynamic set of strings, where the keys are usually strings.
+ */
 public class TrieImplByMap {
+    // Each node in the Trie represents a single character of a word
     static class TrieNode {
+        // Each node contains a map to store child nodes
         Map<Character, TrieNode> children;
+        // A boolean value to mark if the node represents the end of a word
         boolean isEndOfWord;
 
         TrieNode() {
@@ -20,79 +26,71 @@ public class TrieImplByMap {
             root = new TrieNode();
         }
 
-        // Insert a word into the Trie
-        public void insert(String key) {
-            if (key == null || key.isEmpty()) {
-                return;
-            }
-
+        // Insert a word into the trie
+        public void insert(String word) {
             TrieNode curr = root;
-            for (char c : key.toCharArray()) {
-                curr.children.putIfAbsent(c, new TrieNode());
-                curr = curr.children.get(c);
+            for (char c : word.toCharArray()) {
+                curr = curr.children.computeIfAbsent(c, key -> new TrieNode());
             }
             curr.isEndOfWord = true;
         }
 
-        // Search for an exact word
-        public boolean search(String key) {
-            if (key == null || key.isEmpty()) {
-                return false;
-            }
-
+        // Searches for a word in the Trie
+        public boolean search(String word) {
             TrieNode curr = root;
-            for (char c : key.toCharArray()) {
-                if (!curr.children.containsKey(c)) {
+            for (char c : word.toCharArray()) {
+                curr = curr.children.get(c);
+                if (curr == null) {
                     return false;
                 }
-                curr = curr.children.get(c);
             }
+
             return curr.isEndOfWord;
         }
 
-        // Check if a prefix exists in the Trie
-        public boolean isPrefix(String prefix) {
-            if (prefix == null || prefix.isEmpty()) {
-                return false;
-            }
-
+        // Checks if there exists any word in the Trie that starts with the given prefix
+        public boolean startsWith(String prefix) {
             TrieNode curr = root;
             for (char c : prefix.toCharArray()) {
-                if (!curr.children.containsKey(c)) {
+                curr = curr.children.get(c);
+                if (curr == null) {
                     return false;
                 }
-                curr = curr.children.get(c);
             }
+
             return true;
         }
 
-        // Delete a word (optional)
-        public boolean delete(String key) {
-            return deleteHelper(root, key, 0);
+        // Deletes a word from the Trie.
+        public void  delete(String word) {
+            deleteHelper(root, word, 0);
         }
 
-        private boolean deleteHelper(TrieNode node, String key, int index) {
-            if (index == key.length()) {
+        private boolean deleteHelper(TrieNode node, String word, int index) {
+            if (index == word.length()) {
                 if (!node.isEndOfWord) {
                     return false; // word not found
                 }
                 node.isEndOfWord = false;
-                return node.children.isEmpty();
+                return node.children.isEmpty(); // if no children, it can be deleted
             }
 
-            char c = key.charAt(index);
-            TrieNode child = node.children.get(c);
-            if (child == null) return false;
-
-            boolean shouldDeleteChild = deleteHelper(child, key, index + 1);
-            if (shouldDeleteChild) {
-                node.children.remove(c);
-                return node.children.isEmpty() && !node.isEndOfWord;
+            char ch = word.charAt(index);
+            TrieNode childNode = node.children.get(ch);
+            if (childNode == null) {
+                return false; // word not found
             }
+
+            boolean shouldDeletedChild = deleteHelper(childNode, word, index + 1);
+            if (shouldDeletedChild) {
+                node.children.remove(ch);
+                return node.children.isEmpty() && !node.isEndOfWord; // If current node has no other children and is not end of another word, delete it
+            }
+
             return false;
         }
 
-        // Print all words (for debug)
+        // Print all words
         public void printAllWords() {
             printAllWordsHelper(root, new StringBuilder());
         }
@@ -112,26 +110,32 @@ public class TrieImplByMap {
         public static void main(String[] args) {
             Trie trie = new Trie();
 
-            trie.insert("do");
-            trie.insert("Dad");
-            trie.insert("Đỏ");
-            trie.insert("Dấu cách");
-            trie.insert("123");
-            trie.insert("email@domain.com");
-            trie.insert("#smile");
+            // Insert words
+            trie.insert("apple");
+            trie.insert("app");
+            trie.insert("bat");
+            trie.insert("batman");
 
-            System.out.println(trie.search("do"));            // true
-            System.out.println(trie.search("dad"));           // false (case-sensitive)
-            System.out.println(trie.search("Dad"));           // true
-            System.out.println(trie.search("Đỏ"));            // true
-            System.out.println(trie.search("email@domain.com")); // true
-            System.out.println(trie.isPrefix("ema"));         // true
+            // Search words
+            System.out.println(trie.search("apple"));  // true
+            System.out.println(trie.search("app"));    // true
+            System.out.println(trie.search("bat"));    // true
+            System.out.println(trie.search("bats"));   // false
+
+            // Prefix search
+            System.out.println(trie.startsWith("ba")); // true
+            System.out.println(trie.startsWith("cat")); // false
+
+            // Delete words
+            trie.delete("batman");
+            System.out.println("Search 'batman': " + trie.search("batman")); // false
+            System.out.println("Search 'bat': " + trie.search("bat"));    // true
 
             System.out.println("\nAll words in Trie:");
             trie.printAllWords();
 
-            System.out.println("\nDelete 'Dad': " + trie.delete("Dad"));
-            System.out.println("Search 'Dad': " + trie.search("Dad"));
+            trie.delete("bat");
+            System.out.println("Search 'bat': " + trie.search("bat")); // false
         }
     }
 
