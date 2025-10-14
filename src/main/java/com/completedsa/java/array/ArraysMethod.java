@@ -42,7 +42,7 @@ public class ArraysMethod {
         System.out.println("Copied Array: " + Arrays.toString(arr2));
 
         int[] copyRangeArr =  Arrays.copyOfRange(arr1, 1, 3);
-        System.out.println("Copied Range Array: " + Arrays.toString(copyRangeArr));
+        System.out.println("Copied Range Array: " + Arrays.toString(copyRangeArr)); // Copied Range Array: [2, 3]
 
         // deepEquals()
         // Compares two multidimensional arrays to check whether they are deeply equal to each other

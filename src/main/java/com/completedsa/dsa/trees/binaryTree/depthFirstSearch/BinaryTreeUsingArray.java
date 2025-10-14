@@ -1,4 +1,4 @@
-package com.completedsa.dsa.trees.binaryTree;
+package com.completedsa.dsa.trees.binaryTree.depthFirstSearch;
 
 // In case we read from the Binary Tree a lot more than we modify it, an Array implementation of a Binary Tree can make sense as it needs less memory.
 

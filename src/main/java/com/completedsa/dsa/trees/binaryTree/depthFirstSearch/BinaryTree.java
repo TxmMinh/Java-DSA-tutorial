@@ -1,4 +1,4 @@
-package com.completedsa.dsa.trees.binaryTree;
+package com.completedsa.dsa.trees.binaryTree.depthFirstSearch;
 
 /**
  * A Binary Tree is a type of tree data structure where each node can have a maximum of two child nodes, a left child node and a right child node.
