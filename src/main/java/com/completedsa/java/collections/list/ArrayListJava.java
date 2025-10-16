@@ -29,6 +29,7 @@ import java.util.List;
  */
 public class ArrayListJava {
     public static void main(String[] args) {
+        // This constructor is used to build an empty array list.
         ArrayList<String> cars = new ArrayList<>();
 
         // Add Elements
@@ -40,6 +41,10 @@ public class ArrayListJava {
         // add(int index, Object element)
         cars.add(0, "Volvo");
         System.out.println(cars); // [Volvo, Ford, Mazda, Ford]
+
+        // This constructor is used to build an array list initialized with the elements from the collection c.
+        List<String> list = new ArrayList<>(cars);
+        System.out.println(list); // [Volvo, Ford, Mazda, Ford]
 
         // addAll()
         List<String> cars2 = new ArrayList<>();

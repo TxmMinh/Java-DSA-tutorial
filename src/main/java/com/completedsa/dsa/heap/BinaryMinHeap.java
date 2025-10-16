@@ -1,6 +1,12 @@
 package com.completedsa.dsa.heap;
 
-public class BinaryHeap {
+public class BinaryMinHeap {
+    /**
+     * Min heaps have the smallest value at the root node. The smallest value has the highest priority to be removed.
+     * A binary heap is a binary tree that is a complete binary tree, where every single level of the tree is filled completely, except possibly the lowest level nodes.
+     * The order property for a min-heap is that all of the descendents should be greater than their ancestors.
+     * Heaps may contain duplicate values.
+     */
     static class MinHeap {
         // To store array of elements in heap
         private int[] heapArray;
