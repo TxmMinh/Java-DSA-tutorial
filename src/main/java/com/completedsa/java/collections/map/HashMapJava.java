@@ -5,7 +5,7 @@ import java.util.Map;
 
 /*
  * A HashMap stores items in key/value pairs, where each key maps to a specific value.
- * use a key to retrieve its associated value
+ * Use a key to retrieve its associated value
  * Allows one null key.
  * Keys are unique. If we try to insert a duplicate, it replaces the existing value of the corresponding key.
  * Values can be duplicated.
@@ -149,7 +149,7 @@ public class HashMapJava {
         // Used to compute a new value for a specified key if the key is already present in the map and its value is not null.
         // If the key is not present, no action is taken.
         mapCompute.computeIfPresent("Key4", (key, val) -> val + 100);
-        // key "Java" is not present in the map, so no change
+        // key "Key5" is not present in the map, so no change
         mapCompute.computeIfPresent("Key5", (key, val) -> val + 100);
         System.out.println("HashMap after operation: " + mapCompute); // HashMap after operation: {null=1, Key2=15, Key1=13, Key4=103}
 

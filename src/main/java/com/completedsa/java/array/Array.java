@@ -48,5 +48,10 @@ public class Array {
         // descending order
         Arrays.sort(sortArray, Collections.reverseOrder());
         System.out.println(Arrays.toString(sortArray));
+
+        // Declaring array literal
+        int[] arr = new int[]{ 1,2,3,4,5,6,7 };
+        System.out.println(Arrays.toString(arr)); // [1, 2, 3, 4, 5, 6, 7]
+
     }
 }

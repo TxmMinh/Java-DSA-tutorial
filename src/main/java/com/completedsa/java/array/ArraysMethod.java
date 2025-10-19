@@ -80,6 +80,7 @@ public class ArraysMethod {
         System.out.println(Arrays.toString(cars6));
 
         int[] myNum = {50, 10, 25, 1, 17, 99, 33};
+        // Can not use Arrays.sort(int[], comparator)
         Arrays.sort(myNum);
         System.out.println(Arrays.toString(myNum));
 
@@ -92,5 +93,14 @@ public class ArraysMethod {
                 + Arrays.binarySearch(myNum, 20));
         System.out.println("Searching for 25 in arr: "
                 + Arrays.binarySearch(myNum, 25));
+
+        Integer[] myNum2 = {50, 10, 25, 1, 17, 99};
+        // Can use Arrays.sort(Integer[], comparator)
+        Arrays.sort(myNum2, (a, b) -> Integer.compare(b, a));
+        System.out.println(Arrays.toString(myNum2)); // [99, 50, 25, 17, 10, 1]
+
+        // Can use Arrays.sort(int[][], comparator)
+        Arrays.sort(arr3, (a, b) -> Integer.compare(b[0] + b[1], a[0] + a[1]));
+        System.out.println(Arrays.deepToString(arr3)); // [[3, 4], [1, 2]]
     }
 }
