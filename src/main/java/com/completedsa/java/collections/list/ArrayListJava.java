@@ -160,5 +160,8 @@ public class ArrayListJava {
                 System.out.println("Eligible age: " + age);
             }
         });
+
+        Collections.sort(a.subList(1, a.size()));
+        System.out.println(a); // [24, 10, 18]
     }
 }
