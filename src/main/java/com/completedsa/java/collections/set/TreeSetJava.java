@@ -102,5 +102,25 @@ public class TreeSetJava {
         while (value.hasNext()) {
             System.out.println(value.next());
         }
+
+        // floor(E e)
+        // return the greatest element in this set less than or equal to the given element, or null if there is no such element
+        TreeSet<Integer> treeadd = new TreeSet<>();
+        treeadd.add(10);
+        treeadd.add(20);
+        treeadd.add(30);
+        treeadd.add(40);
+
+        // Print the TreeSet
+        System.out.println("TreeSet: " + treeadd);
+        int valueFloor = treeadd.floor(25);
+        // printing the floor value
+        System.out.println("Floor value for 25: " + valueFloor); // 20
+
+        // ceiling(E e)
+        // return the least element in this set greater than or equal to the given element, or null if there is no such element
+        int valueCeiling = treeadd.ceiling(25);
+        // printing  the ceiling value
+        System.out.println("Ceiling value for 25: " + valueCeiling); // 30
     }
 }

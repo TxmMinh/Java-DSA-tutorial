@@ -46,5 +46,31 @@ public class TreeMapJava {
 
         capitalCities.clear();
         System.out.println(capitalCities); // {}
+
+        TreeMap<Integer, String> numMap = new TreeMap<>();
+        numMap.put(6, "Six");
+        numMap.put(1, "One");
+        numMap.put(5, "Five");
+        numMap.put(3, "Three");
+        numMap.put(8, "Eight");
+        numMap.put(10, "Ten");
+
+        // Print the Values of TreeMap
+        System.out.println("TreeMap: " + numMap); // TreeMap: {1=One, 3=Three, 5=Five, 6=Six, 8=Eight, 10=Ten}
+
+        // floorKey(K key)
+        // return the greatest key less than or equal to given key from the parameter
+
+        System.out.print("Floor Entry of Element 11 is: ");
+        System.out.println(numMap.floorKey(11)); // 10
+
+        // This will give null
+        System.out.print("Floor Entry of Element 0 is: ");
+        System.out.println(numMap.floorKey(0)); // null
+
+        // ceilingKey(K key)
+        // returns the least key greater than or equal to the given key or null if such a key is absent.
+        System.out.println(numMap.ceilingKey(4)); // null
+        System.out.println(numMap.ceilingKey(11)); // null
     }
 }
