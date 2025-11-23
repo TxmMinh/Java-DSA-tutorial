@@ -1,6 +1,7 @@
 package com.completedsa.java.collections.list;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -163,5 +164,11 @@ public class ArrayListJava {
 
         Collections.sort(a.subList(1, a.size()));
         System.out.println(a); // [24, 10, 18]
+
+        List<Integer> arr = List.of(24, 18, 10);
+        Object[] arr1 = arr.toArray();
+        System.out.println(Arrays.toString(arr1));
+        Integer[] arr2 = arr.toArray(new Integer[0]); // singleton zero-length array
+        System.out.println(Arrays.toString(arr2));
     }
 }

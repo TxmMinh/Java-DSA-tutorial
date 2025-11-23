@@ -102,5 +102,11 @@ public class ArraysMethod {
         // Can use Arrays.sort(int[][], comparator)
         Arrays.sort(arr3, (a, b) -> Integer.compare(b[0] + b[1], a[0] + a[1]));
         System.out.println(Arrays.deepToString(arr3)); // [[3, 4], [1, 2]]
+
+        // clone()
+        // create a shallow copy of an array without manual iteration
+        int[] originalArray = {1, 2, 3};
+        int[] clonedArray = originalArray.clone();
+        System.out.println(originalArray == clonedArray); // false
     }
 }
