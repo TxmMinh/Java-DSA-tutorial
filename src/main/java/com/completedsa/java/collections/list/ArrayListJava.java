@@ -77,7 +77,7 @@ public class ArrayListJava {
         System.out.println(cars.isEmpty());
 
         // Return a sublist which provides access to a range of this list's items
-        // subList(int fromIndex, int toIndex)
+        // subList(int fromIndex - inclusive, int toIndex - exclusive)
         System.out.println(cars.subList(1, 3)); // [Ford, Tesla]
 
         // Change an Element at index by value

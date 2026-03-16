@@ -26,7 +26,7 @@ public class ArrayDequeJava {
         // addAll(Collection<? extends E> c)
         // Adds all of the elements in the specified collection at the end of this deque
         d.addAll(d2);
-        System.out.println("ArrayDeque: " + d); // ArrayDeque: [10, 20, 1, 2, 3, 4]
+        System.out.println("ArrayDeque: " + d); // ArrayDeque: [10, 20, 30, 1, 2, 3, 4]
 
         Deque<String> d3 = new ArrayDeque<>();
         // add(E e)

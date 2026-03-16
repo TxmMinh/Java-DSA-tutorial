@@ -38,8 +38,8 @@ public class ArraysMethod {
         int[] arr1 = {1, 2, 3, 4, 5};
         // copy the array to a new array with the same length
         int[] arr2 = Arrays.copyOf(arr1, arr1.length);
-        System.out.println("Original Array: " + Arrays.toString(arr1));
-        System.out.println("Copied Array: " + Arrays.toString(arr2));
+        System.out.println("Original Array: " + Arrays.toString(arr1)); // Original Array: [1, 2, 3, 4, 5]
+        System.out.println("Copied Array: " + Arrays.toString(arr2)); // Copied Array: [1, 2, 3, 4, 5]
 
         int[] copyRangeArr =  Arrays.copyOfRange(arr1, 1, 3);
         System.out.println("Copied Range Array: " + Arrays.toString(copyRangeArr)); // Copied Range Array: [2, 3]
@@ -65,10 +65,10 @@ public class ArraysMethod {
         // Fills an array with a specified value
         String[] fruits = {"Banana", "Orange", "Apple", "Mango"};
         Arrays.fill(fruits, "Kiwi");
-        System.out.println(Arrays.toString(fruits));
+        System.out.println(Arrays.toString(fruits)); // [Kiwi, Kiwi, Kiwi, Kiwi]
         String[] fruits2 = {"Banana", "Orange", "Apple", "Mango"};
         Arrays.fill(fruits2, 2, 4, "Kiwi");
-        System.out.println(Arrays.toString(fruits2));
+        System.out.println(Arrays.toString(fruits2)); // [Banana, Orange, Kiwi, Kiwi]
 
         // sort()
         // Sorts an array in ascending order
